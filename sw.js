@@ -1,4 +1,4 @@
-const CACHE_NAME = "personal-fitness-v4";
+const CACHE_NAME = "personal-fitness-v4-3";
 const APP_FILES = [
   "./",
   "./index.html",

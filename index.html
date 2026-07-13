@@ -16,17 +16,26 @@
 <header class="topbar">
   <div>
     <p class="eyebrow">Personal Fitness App</p>
-    <h1>Entrenamiento y nutrición</h1>
+    <h1>Entrenamiento y bienestar</h1>
   </div>
   <nav class="nav-scroll" aria-label="Secciones">
     <a href="#rutinas">Rutinas</a>
     <a href="#constancia">Constancia</a>
+    <a href="#objetivos">Objetivos</a>
+    <a href="#recuperacion">Recuperación</a>
+    <a href="#citas">Citas</a>
     <a href="#nutricion">Nutrición</a>
     <a href="#fisico">Evaluación física</a>
   </nav>
 </header>
 
 <main>
+  <section id="attentionBanner" class="attention-banner hidden" aria-live="polite">
+    <div>
+      <p class="eyebrow">Atención</p>
+      <div id="attentionItems"></div>
+    </div>
+  </section>
   <section id="rutinas" class="section">
     <div class="section-heading">
       <div>
@@ -240,11 +249,168 @@
 
     <div class="card static-card">
       <div class="card-title-row">
-        <h3>Historial reciente</h3>
-        <button id="exportHistory" class="secondary-btn">Exportar respaldo</button>
+        <div>
+          <h3>Historial reciente</h3>
+          <p id="backupStatus" class="microcopy">Datos guardados solo en este dispositivo.</p>
+        </div>
+        <div class="compact-actions">
+          <button id="exportHistory" class="secondary-btn" type="button">Exportar</button>
+          <label class="secondary-btn file-inline">
+            Importar
+            <input id="historyImport" type="file" accept=".json,application/json">
+          </label>
+        </div>
       </div>
       <div id="historyList" class="history-list"></div>
-      <button id="clearHistory" class="danger-btn">Borrar historial local</button>
+      <button id="clearHistory" class="danger-btn" type="button">Borrar historial local</button>
+    </div>
+  </section>
+
+
+  <section id="objetivos" class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Seguimiento personal</p>
+        <h2>Objetivos</h2>
+      </div>
+    </div>
+
+    <div class="stats-grid goal-stats">
+      <article class="stat">
+        <span>Objetivos activos</span>
+        <strong id="activeGoalsCount">0</strong>
+      </article>
+      <article class="stat">
+        <span>Objetivos completados</span>
+        <strong id="completedGoalsTotal">0</strong>
+      </article>
+    </div>
+
+    <div class="card static-card">
+      <h3>Metas de composición corporal</h3>
+      <p class="muted">
+        Fecha base: 1 de junio de 2026. La finalización es manual para evitar
+        marcar una meta por una sola medición aislada.
+      </p>
+    </div>
+
+    <div id="activeGoalsList" class="goals-list"></div>
+
+    <details id="completedGoalsPanel" class="card goals-completed-panel">
+      <summary>
+        Objetivos completados
+        <span id="completedGoalsCount">0</span>
+      </summary>
+      <div id="completedGoalsList" class="card-body goals-list"></div>
+    </details>
+  </section>
+
+  <section id="recuperacion" class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Prevención y seguimiento</p>
+        <h2>Recuperación</h2>
+      </div>
+    </div>
+
+    <article id="recoveryCard" class="card static-card recovery-card status-green">
+      <div class="recovery-heading">
+        <div>
+          <p class="status-line"><span id="recoveryDot" class="status-dot"></span><strong id="recoveryStatus">Verde</strong></p>
+          <h3 id="recoveryTitle">Sin alertas actuales</h3>
+          <p id="recoveryMessage" class="muted">Registra un chequeo breve una vez por semana o cuando aparezca alguna molestia.</p>
+        </div>
+      </div>
+
+      <div class="recovery-metrics">
+        <div><span>Sesiones de carga · 7 días</span><strong id="load7Count">0</strong></div>
+        <div><span>Días de carga consecutivos</span><strong id="loadStreak">0</strong></div>
+        <div><span>Próxima fisioterapia</span><strong id="physioDue">Sin fecha</strong></div>
+      </div>
+
+      <div class="recovery-actions">
+        <button id="openRecoveryCheck" class="primary-btn" type="button">Chequeo rápido</button>
+        <a class="secondary-btn button-link" href="#citas">Ver citas</a>
+      </div>
+
+      <p id="lastRecoveryCheck" class="microcopy">Sin chequeos registrados.</p>
+      <p class="disclaimer">Indicador orientativo: no diagnostica lesiones ni sustituye una valoración profesional.</p>
+    </article>
+  </section>
+
+
+  <section id="citas" class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Recordatorios locales</p>
+        <h2>Citas</h2>
+      </div>
+    </div>
+
+    <div class="appointments-grid">
+      <article id="psychologyCard" class="card static-card appointment-card">
+        <div class="appointment-heading">
+          <div>
+            <p class="eyebrow">Psicología</p>
+            <h3 id="psychologyStatus">No agendada todavía</h3>
+            <p id="psychologyCountdown" class="muted">
+              Selecciona la fecha de tu próxima cita.
+            </p>
+          </div>
+        </div>
+
+        <label class="form-field">
+          <span>Próxima cita</span>
+          <input id="psychologyDate" type="date">
+        </label>
+
+        <div class="appointment-actions">
+          <button id="savePsychologyDate" class="primary-btn" type="button">Guardar fecha</button>
+          <button id="completePsychologyDate" class="secondary-btn" type="button">Marcar realizada</button>
+          <button id="clearPsychologyDate" class="text-button" type="button">Quitar fecha</button>
+        </div>
+
+        <p id="psychologyLastVisit" class="microcopy">Sin cita anterior registrada.</p>
+        <p class="disclaimer">
+          El recordatorio aparece dentro de la app un día antes. No genera una
+          notificación del sistema cuando la app está cerrada.
+        </p>
+      </article>
+
+      <article id="physioAppointmentCard" class="card static-card appointment-card">
+        <div class="appointment-heading">
+          <div>
+            <p class="eyebrow">Fisioterapia</p>
+            <h3 id="physioAppointmentStatus">Sin visita registrada</h3>
+            <p id="physioAppointmentCountdown" class="muted">
+              Registra la última visita para calcular la próxima revisión.
+            </p>
+          </div>
+        </div>
+
+        <label class="form-field">
+          <span>Fecha de la última visita</span>
+          <input id="physioDate" type="date">
+        </label>
+
+        <label class="form-field">
+          <span>Recordarme cada</span>
+          <select id="physioInterval">
+            <option value="6">6 semanas</option>
+            <option value="8" selected>8 semanas</option>
+            <option value="12">12 semanas</option>
+          </select>
+        </label>
+
+        <button id="savePhysioSettings" class="primary-btn full-width" type="button">
+          Guardar seguimiento
+        </button>
+
+        <p class="disclaimer">
+          La frecuencia es una preferencia de seguimiento, no una indicación
+          médica universal.
+        </p>
+      </article>
     </div>
   </section>
 
@@ -487,7 +653,99 @@
   </section>
 </main>
 
-<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<footer class="app-footer">
+  <strong>Personal Fitness App · v4.3</strong>
+  <span>Datos guardados localmente en este dispositivo</span>
+</footer>
+
+<dialog id="recoveryDialog" class="app-dialog">
+  <form id="recoveryForm">
+    <div class="dialog-header">
+      <div>
+        <p class="eyebrow">Chequeo semanal</p>
+        <h2>Recuperación</h2>
+      </div>
+      <button class="icon-button" type="button" data-close-dialog="recoveryDialog" aria-label="Cerrar">×</button>
+    </div>
+
+    <label class="form-field">
+      <span>Dolor localizado: <strong id="painValue">0</strong>/10</span>
+      <input id="painScore" name="painScore" type="range" min="0" max="10" value="0">
+    </label>
+
+    <label class="form-field">
+      <span>¿La molestia alteró tu técnica o entrenamiento?</span>
+      <select id="techniqueImpact" name="techniqueImpact">
+        <option value="no">No</option>
+        <option value="slight">Un poco</option>
+        <option value="yes">Sí</option>
+      </select>
+    </label>
+
+    <label class="form-field">
+      <span>Fatiga general</span>
+      <select id="fatigueLevel" name="fatigueLevel">
+        <option value="low">Baja</option>
+        <option value="medium" selected>Media</option>
+        <option value="high">Alta</option>
+      </select>
+    </label>
+
+    <label class="form-field">
+      <span>Calidad del sueño</span>
+      <select id="sleepQuality" name="sleepQuality">
+        <option value="good">Buena</option>
+        <option value="regular" selected>Regular</option>
+        <option value="bad">Mala</option>
+      </select>
+    </label>
+
+    <label class="form-field">
+      <span>Duración de la molestia</span>
+      <select id="symptomDuration" name="symptomDuration">
+        <option value="none">Sin molestia</option>
+        <option value="1-2">1–2 días</option>
+        <option value="3-6">3–6 días</option>
+        <option value="7+">7 días o más</option>
+      </select>
+    </label>
+
+    <label class="form-field">
+      <span>Zona principal</span>
+      <select id="bodyArea" name="bodyArea">
+        <option value="none">Ninguna</option>
+        <option value="Hombro">Hombro</option>
+        <option value="Espalda">Espalda</option>
+        <option value="Rodilla">Rodilla</option>
+        <option value="Cadera">Cadera</option>
+        <option value="Tobillo">Tobillo</option>
+        <option value="Otra">Otra</option>
+      </select>
+    </label>
+
+    <label class="check-field">
+      <input id="movementLimitation" name="movementLimitation" type="checkbox">
+      <span>He notado pérdida de fuerza o reducción del rango de movimiento.</span>
+    </label>
+
+    <label class="check-field warning-check">
+      <input id="redFlag" name="redFlag" type="checkbox">
+      <span>Existe un síntoma agudo importante: deformidad, hinchazón marcada, incapacidad para apoyar o usar una extremidad, debilidad súbita u hormigueo persistente.</span>
+    </label>
+
+    <div class="dialog-actions">
+      <button class="secondary-btn" type="button" data-close-dialog="recoveryDialog">Cancelar</button>
+      <button class="primary-btn" type="submit">Guardar chequeo</button>
+    </div>
+  </form>
+</dialog>
+
+
+<div id="toast" class="toast" role="status" aria-live="polite">
+  <span id="toastMessage"></span>
+  <button id="toastAction" type="button" hidden></button>
+</div>
+
 <script src="./app.js"></script>
 </body>
 </html>
