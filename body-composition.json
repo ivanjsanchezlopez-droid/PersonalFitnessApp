@@ -1,0 +1,26 @@
+[
+  {
+    "date": "2026-05-01",
+    "heightCm": 175.3,
+    "weightKg": 77.2,
+    "bmi": 25.1,
+    "muscleKg": 34.5,
+    "fatMassKg": 16.5,
+    "bodyFatPercent": 21.4,
+    "visceralFat": 7,
+    "waistHipRatio": 0.93,
+    "inBodyScore": 78
+  },
+  {
+    "date": "2026-06-01",
+    "heightCm": 175.3,
+    "weightKg": 77.7,
+    "bmi": 25.3,
+    "muscleKg": 35.4,
+    "fatMassKg": 15.6,
+    "bodyFatPercent": 20.1,
+    "visceralFat": 6,
+    "waistHipRatio": 0.91,
+    "inBodyScore": 80
+  }
+]
