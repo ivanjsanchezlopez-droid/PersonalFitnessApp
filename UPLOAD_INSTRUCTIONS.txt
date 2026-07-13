@@ -1,0 +1,34 @@
+PERSONAL FITNESS APP — CLEAN INSTALL v4.4
+
+UPLOAD THESE FILES TO THE ROOT OF THE EMPTY main BRANCH:
+
+.gitignore
+README.md
+app.js
+icon-192.png
+icon-512.png
+index.html
+manifest.webmanifest
+style.css
+sw.js
+
+DO NOT UPLOAD:
+- body-composition.json
+- personal-fitness-backup-*.json
+- this ZIP file itself
+
+GITHUB PAGES SETTINGS:
+1. Repository > Settings > Pages
+2. Source: Deploy from a branch
+3. Branch: main
+4. Folder: / (root)
+5. Save
+
+PUBLIC URL:
+https://ivanjsanchezlopez-droid.github.io/PersonalFitnessApp/
+
+The personal history, goals, appointments, recovery checks and loaded
+body-composition data are stored locally in the browser.
+
+The psychology reminder is shown when the app is opened one day before
+the appointment. It is not a system push notification.

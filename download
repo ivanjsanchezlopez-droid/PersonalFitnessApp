@@ -1,0 +1,8 @@
+# Private health and backup files
+body-composition.json
+personal-fitness-backup-*.json
+
+# Local archives and operating system files
+*.zip
+.DS_Store
+Thumbs.db
