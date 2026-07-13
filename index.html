@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Fitness">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./style.css">
+  <title>Personal Fitness App</title>
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <p class="eyebrow">Personal Fitness App</p>
+    <h1>Entrenamiento y nutrición</h1>
+  </div>
+  <nav class="nav-scroll" aria-label="Secciones">
+    <a href="#rutinas">Rutinas</a>
+    <a href="#constancia">Constancia</a>
+    <a href="#nutricion">Nutrición</a>
+    <a href="#fisico">Evaluación física</a>
+  </nav>
+</header>
+
+<main>
+  <section id="rutinas" class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Vista rápida</p>
+        <h2>Rutinas</h2>
+      </div>
+    </div>
+
+    <h3 class="group-title">Gimnasio</h3>
+    <div class="cards">
+      <details class="card" open>
+        <summary>Día 1 — Push</summary>
+        <div class="card-body">
+          <ul class="routine-list">
+            <li><strong>Bench Press</strong><span>4 × 4–6</span></li>
+            <li><strong>Landmine Press</strong><span>3 × 6–10 por lado</span></li>
+            <li><strong>Dips</strong><span>3 × 6–10</span></li>
+            <li><strong>Lateral Raises</strong><span>3 × 12–15</span></li>
+            <li><strong>Triceps Rope Pushdown</strong><span>3 × 10–15</span></li>
+          </ul>
+          <button class="complete-btn" data-session="Push" data-type="Gimnasio">Marcar sesión completada</button>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>Día 2 — Pull</summary>
+        <div class="card-body">
+          <ul class="routine-list">
+            <li><strong>Deadlift</strong><span>3 × 3–5</span></li>
+            <li><strong>Pull Ups</strong><span>4 × 5–8</span></li>
+            <li><strong>Chest-Supported Row</strong><span>3 × 8–10</span></li>
+            <li><strong>Face Pull</strong><span>3 × 12–15</span></li>
+            <li><strong>Hammer Curl</strong><span>3 × 8–12</span></li>
+            <li><strong>Pallof Press</strong><span>3 × 10–12 por lado</span></li>
+          </ul>
+          <button class="complete-btn" data-session="Pull" data-type="Gimnasio">Marcar sesión completada</button>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>Día 3 — Legs</summary>
+        <div class="card-body">
+          <ul class="routine-list">
+            <li><strong>Back Squat</strong><span>4 × 4–6</span></li>
+            <li><strong>Romanian Deadlift</strong><span>3 × 6–8</span></li>
+            <li><strong>Bulgarian Split Squat</strong><span>3 × 8–10 por pierna</span></li>
+            <li><strong>Hip Thrust</strong><span>3 × 8–10</span></li>
+            <li><strong>Leg Curl</strong><span>2–3 × 10–12</span></li>
+          </ul>
+          <button class="complete-btn" data-session="Legs" data-type="Gimnasio">Marcar sesión completada</button>
+        </div>
+      </details>
+    </div>
+
+    <h3 class="group-title">Natación — ciclo de 4 semanas</h3>
+    <div class="cards">
+      <details class="card">
+        <summary>Semana 1 — Sesión 1</summary>
+        <div class="card-body">
+          <ul class="routine-list">
+            <li><strong>Calentamiento</strong><span>300 m suave</span></li>
+            <li><strong>Técnica</strong><span>4 × 50 m</span></li>
+            <li><strong>Patada</strong><span>300 m con tabla</span></li>
+            <li><strong>Pull + manoplas</strong><span>300 m Z3</span></li>
+            <li><strong>Cambios de ritmo</strong><span>8 × 100 m</span></li>
+            <li><strong>Afloje</strong><span>100 m</span></li>
+          </ul>
+          <p class="total">Total: 2.000 m</p>
+          <button class="complete-btn" data-session="Semana 1 - Sesión 1" data-type="Natación">Marcar sesión completada</button>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>Semana 1 — Sesión 2</summary>
+        <div class="card-body">
+          <ul class="routine-list">
+            <li><strong>Calentamiento</strong><span>300 m</span></li>
+            <li><strong>Progresivos</strong><span>4 × 100 m</span></li>
+            <li><strong>Z3 hipóxico</strong><span>4 × 200 m</span></li>
+            <li><strong>Sprint</strong><span>4 × 50 m</span></li>
+            <li><strong>Dorso suave</strong><span>100 m</span></li>
+            <li><strong>Afloje</strong><span>200 m</span></li>
+          </ul>
+          <p class="total">Total: 2.000 m</p>
+          <button class="complete-btn" data-session="Semana 1 - Sesión 2" data-type="Natación">Marcar sesión completada</button>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>Semana 2 — Sesión 1</summary>
+        <div class="card-body">
+          <ul class="routine-list">
+            <li><strong>Calentamiento</strong><span>400 m</span></li>
+            <li><strong>Técnica</strong><span>4 × 50 m</span></li>
+            <li><strong>Patada</strong><span>300 m</span></li>
+            <li><strong>Pull + manoplas</strong><span>300 m Z3</span></li>
+            <li><strong>Z3</strong><span>6 × 100 m</span></li>
+            <li><strong>Z4</strong><span>4 × 50 m</span></li>
+            <li><strong>Afloje</strong><span>200 m</span></li>
+          </ul>
+          <p class="total">Total: 2.200 m</p>
+          <button class="complete-btn" data-session="Semana 2 - Sesión 1" data-type="Natación">Marcar sesión completada</button>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>Semana 2 — Sesión 2</summary>
+        <div class="card-body">
+          <ul class="routine-list">
+            <li><strong>Calentamiento</strong><span>400 m</span></li>
+            <li><strong>Z3 hipóxico</strong><span>6 × 200 m</span></li>
+            <li><strong>Rápido / suave</strong><span>8 × 50 m</span></li>
+            <li><strong>Dorso</strong><span>200 m</span></li>
+            <li><strong>Afloje</strong><span>200 m</span></li>
+          </ul>
+          <p class="total">Total: 2.400 m</p>
+          <button class="complete-btn" data-session="Semana 2 - Sesión 2" data-type="Natación">Marcar sesión completada</button>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>Semana 3 — Sesión 1</summary>
+        <div class="card-body">
+          <ul class="routine-list">
+            <li><strong>Calentamiento</strong><span>300 m</span></li>
+            <li><strong>Técnica</strong><span>4 × 50 m</span></li>
+            <li><strong>Z2</strong><span>4 × 100 m</span></li>
+            <li><strong>T15</strong><span>15 min continuo fuerte y sostenible</span></li>
+            <li><strong>Recuperación técnica</strong><span>4 × 50 m</span></li>
+            <li><strong>Afloje</strong><span>200 m</span></li>
+          </ul>
+          <p class="total">Total: 1.300 m + distancia del T15</p>
+          <button class="complete-btn" data-session="Semana 3 - Sesión 1" data-type="Natación">Marcar sesión completada</button>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>Semana 3 — Sesión 2</summary>
+        <div class="card-body">
+          <ul class="routine-list">
+            <li><strong>Calentamiento</strong><span>400 m</span></li>
+            <li><strong>Z3</strong><span>8 × 100 m</span></li>
+            <li><strong>Z4</strong><span>4 × 100 m</span></li>
+            <li><strong>Rápidos</strong><span>8 × 50 m</span></li>
+            <li><strong>Dorso</strong><span>200 m</span></li>
+            <li><strong>Afloje</strong><span>200 m</span></li>
+          </ul>
+          <p class="total">Total: 2.400 m</p>
+          <button class="complete-btn" data-session="Semana 3 - Sesión 2" data-type="Natación">Marcar sesión completada</button>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>Semana 4 — Sesión 1</summary>
+        <div class="card-body">
+          <ul class="routine-list">
+            <li><strong>Calentamiento</strong><span>300 m</span></li>
+            <li><strong>Técnica</strong><span>6 × 50 m</span></li>
+            <li><strong>Z2</strong><span>8 × 100 m</span></li>
+            <li><strong>Patada</strong><span>4 × 50 m</span></li>
+            <li><strong>Pull suave</strong><span>4 × 50 m</span></li>
+            <li><strong>Afloje</strong><span>200 m</span></li>
+          </ul>
+          <p class="total">Total: 2.000 m</p>
+          <button class="complete-btn" data-session="Semana 4 - Sesión 1" data-type="Natación">Marcar sesión completada</button>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>Semana 4 — Sesión 2</summary>
+        <div class="card-body">
+          <ul class="routine-list">
+            <li><strong>Calentamiento</strong><span>400 m</span></li>
+            <li><strong>Progresivos</strong><span>4 × 100 m</span></li>
+            <li><strong>Z3 hipóxico</strong><span>6 × 200 m</span></li>
+            <li><strong>Sprint</strong><span>4 × 50 m</span></li>
+            <li><strong>Afloje</strong><span>200 m</span></li>
+          </ul>
+          <p class="total">Total: 2.400 m</p>
+          <button class="complete-btn" data-session="Semana 4 - Sesión 2" data-type="Natación">Marcar sesión completada</button>
+        </div>
+      </details>
+    </div>
+
+    <h3 class="group-title">Otras actividades</h3>
+    <div class="activity-buttons">
+      <button class="quick-activity" data-session="Movilidad" data-type="Movilidad">Movilidad completada</button>
+      <button class="quick-activity" data-session="Montaña" data-type="Montaña">Montaña completada</button>
+      <button class="quick-activity" data-session="Aguas abiertas" data-type="Aguas abiertas">Aguas abiertas completada</button>
+    </div>
+  </section>
+
+  <section id="constancia" class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Guardado local</p>
+        <h2>Constancia</h2>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <article class="stat"><span>Esta semana</span><strong id="weekCount">0</strong></article>
+      <article class="stat"><span>Este mes</span><strong id="monthCount">0</strong></article>
+      <article class="stat"><span>Racha activa</span><strong id="streakCount">0 días</strong></article>
+    </div>
+
+    <div class="card static-card">
+      <h3>Sesiones por actividad</h3>
+      <div id="typeSummary" class="type-summary"></div>
+    </div>
+
+    <div class="card static-card">
+      <div class="card-title-row">
+        <h3>Historial reciente</h3>
+        <button id="exportHistory" class="secondary-btn">Exportar respaldo</button>
+      </div>
+      <div id="historyList" class="history-list"></div>
+      <button id="clearHistory" class="danger-btn">Borrar historial local</button>
+    </div>
+  </section>
+
+  <section id="nutricion" class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Plan personalizado de julio</p>
+        <h2>Plan nutricional</h2>
+      </div>
+    </div>
+
+    <div class="nutrition-summary">
+      <article class="stat"><span>Enfoque</span><strong>Déficit hiperproteico</strong></article>
+      <article class="stat"><span>Energía</span><strong>2.855 kcal</strong></article>
+      <article class="stat"><span>Agua</span><strong>3 L diarios</strong></article>
+      <article class="stat"><span>Sueño</span><strong>10:30 p. m.</strong></article>
+    </div>
+
+    <div class="timeline">
+      <details class="meal card" open>
+        <summary><span>6:30 a. m.</span> Despertar</summary>
+        <div class="card-body">
+          <p>Iniciar la rutina diaria y preparar el desayuno entre 7:00 y 8:00 a. m.</p>
+        </div>
+      </details>
+
+      <details class="meal card">
+        <summary><span>7:00–8:00 a. m.</span> Desayuno</summary>
+        <div class="card-body">
+          <div class="meal-options">
+            <article>
+              <h4>Opción 1 — Gallo pinto</h4>
+              <ul>
+                <li>1 taza de gallo pinto</li>
+                <li>3 huevos</li>
+                <li>2 oz (60 g) de queso Turrialba</li>
+                <li>1 cucharadita de aceite de aguacate para cocción</li>
+              </ul>
+            </article>
+            <article>
+              <h4>Opción 2 — Prensadas con huevos</h4>
+              <ul>
+                <li>4 Tortiricas</li>
+                <li>3 huevos</li>
+                <li>2 oz (60 g) de queso Turrialba</li>
+                <li>1 cucharadita de aceite de aguacate para cocción</li>
+              </ul>
+            </article>
+            <article>
+              <h4>Opción 3 — Tostada</h4>
+              <ul>
+                <li>1 tostada</li>
+                <li>⅓ taza de hummus</li>
+                <li>3 huevos</li>
+                <li>2 oz (60 g) de queso Turrialba</li>
+                <li>1 cucharadita de aceite de aguacate</li>
+              </ul>
+            </article>
+          </div>
+          <p class="meal-footer">1 vaso de agua (250 ml) + 1 taza de café negro sin azúcar.</p>
+        </div>
+      </details>
+
+      <details class="meal card">
+        <summary><span>10:00 a. m.</span> Merienda de la mañana</summary>
+        <div class="card-body">
+          <h4>Batido de proteína</h4>
+          <ul>
+            <li>1 taza de leche descremada o 1 kéfir</li>
+            <li>1 banano de exportación</li>
+            <li>½ taza de frutas congeladas</li>
+            <li>2 cucharadas copetonas de avena</li>
+            <li>1 scoop de proteína</li>
+            <li>1 vaso de agua (250 ml)</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="meal card">
+        <summary><span>12:00 m.</span> Almuerzo</summary>
+        <div class="card-body">
+          <h4>Casadito</h4>
+          <ul>
+            <li>½ taza de frijoles</li>
+            <li>1½ taza de vegetales</li>
+            <li>1 taza de arroz</li>
+            <li>5 oz (150 g) de pollo, pescado o mariscos</li>
+            <li>2 cucharaditas de aceite vegetal para cocción</li>
+            <li>1 vaso de agua (250 ml)</li>
+            <li>1 vaso de jugo de arándanos sin azúcar</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="meal card">
+        <summary><span>3:00 p. m.</span> Merienda de la tarde</summary>
+        <div class="card-body">
+          <div class="meal-options">
+            <article>
+              <h4>Opción 1 — Tostada</h4>
+              <ul>
+                <li>1 NutriSnacks tostada</li>
+                <li>1 cucharadita de mermelada</li>
+                <li>7–10 almendras sin azúcar, sal ni aceite añadido</li>
+                <li>2 oz (60 g) de queso cottage</li>
+              </ul>
+            </article>
+            <article>
+              <h4>Opción 2 — Snack</h4>
+              <ul>
+                <li>1 paquete del surtido de snacks indicado</li>
+                <li>2 palitos de mozzarella light Crystal Farms</li>
+              </ul>
+            </article>
+          </div>
+          <p class="meal-footer">1 vaso de agua (250 ml) + 1 taza de café negro sin azúcar.</p>
+        </div>
+      </details>
+
+      <details class="meal card">
+        <summary><span>30 min antes</span> Preentreno</summary>
+        <div class="card-body">
+          <div class="meal-options">
+            <article>
+              <h4>Opción 1 — Bowl</h4>
+              <ul>
+                <li>1 taza (250 ml) de yogurt griego</li>
+                <li>1 taza de fruta picada</li>
+                <li>2 vasos de agua (500 ml)</li>
+              </ul>
+            </article>
+            <article>
+              <h4>Opción 2 — Batido de fresa</h4>
+              <ul>
+                <li>1 taza de leche</li>
+                <li>1 porción de proteína</li>
+                <li>8 fresas</li>
+                <li>2 vasos de agua (500 ml)</li>
+              </ul>
+            </article>
+          </div>
+          <p class="notice">El plan permite consumir el preentreno aunque no realices ejercicio.</p>
+        </div>
+      </details>
+
+      <details class="meal card">
+        <summary><span>6:00–7:00 p. m.</span> Ejercicio</summary>
+        <div class="card-body">
+          <p><strong>Hidratación durante la sesión:</strong> 4 vasos de agua, equivalentes a 1 L.</p>
+        </div>
+      </details>
+
+      <details class="meal card">
+        <summary><span>7:30–8:00 p. m.</span> Cena</summary>
+        <div class="card-body">
+          <div class="meal-options">
+            <article>
+              <h4>Opción 1 — Wrap</h4>
+              <ul>
+                <li>⅓ taza de frijoles molidos careos o marca “La Chula”</li>
+                <li>1 taza de vegetales</li>
+                <li>1 tortilla wrap</li>
+                <li>5 oz (150 g) de atún en agua o sardina</li>
+                <li>¼ de aguacate</li>
+                <li>2 vasos de agua (500 ml)</li>
+              </ul>
+            </article>
+            <article>
+              <h4>Opción 2 — Pasta a la boloñesa</h4>
+              <ul>
+                <li>½ taza de garbanzos</li>
+                <li>½ taza de ensalada verde</li>
+                <li>½ taza de salsa de tomate natural o pasta de tomate Roma</li>
+                <li>Hongos, cebolla, albahaca y ajo</li>
+                <li>1 taza de pasta cocida</li>
+                <li>5 oz (150 g) de carne molida baja en grasa</li>
+                <li>1 cucharadita de aceite o aderezo</li>
+                <li>2 vasos de agua (500 ml)</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="card static-card">
+      <h3>Distribución diaria de porciones</h3>
+      <div class="portion-grid">
+        <div><span>Leche descremada</span><strong>1</strong></div>
+        <div><span>Yogurt griego</span><strong>1</strong></div>
+        <div><span>Leguminosas</span><strong>3</strong></div>
+        <div><span>Frutas</span><strong>3,5</strong></div>
+        <div><span>Azúcar</span><strong>1</strong></div>
+        <div><span>Vegetales</span><strong>2,5</strong></div>
+        <div><span>Harinas</span><strong>7</strong></div>
+        <div><span>Proteína baja en grasa</span><strong>12</strong></div>
+        <div><span>Proteína media en grasa</span><strong>3</strong></div>
+        <div><span>Proteína alta en grasa</span><strong>2</strong></div>
+        <div><span>Scoop de proteína</span><strong>1</strong></div>
+        <div><span>Grasas</span><strong>5</strong></div>
+        <div><span>Agua</span><strong>12 vasos</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fisico" class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Privado y local</p>
+        <h2>Evaluación física</h2>
+      </div>
+    </div>
+
+    <div class="card static-card">
+      <h3>Cargar archivo privado</h3>
+      <p class="muted">Selecciona tu archivo <code>body-composition.json</code>. La app lo lee dentro de este dispositivo y no lo sube a GitHub.</p>
+      <label class="file-button">
+        Seleccionar archivo JSON
+        <input id="bodyFile" type="file" accept=".json,application/json">
+      </label>
+      <p id="bodyStatus" class="muted"></p>
+    </div>
+
+    <div id="bodyDashboard" class="hidden">
+      <div class="stats-grid body-stats">
+        <article class="stat"><span>Peso</span><strong id="bodyWeight">—</strong></article>
+        <article class="stat"><span>IMC</span><strong id="bodyBmi">—</strong></article>
+        <article class="stat"><span>Músculo</span><strong id="bodyMuscle">—</strong></article>
+        <article class="stat"><span>Grasa corporal</span><strong id="bodyFat">—</strong></article>
+      </div>
+      <div class="card static-card">
+        <h3>Última medición</h3>
+        <div id="bodyLatest" class="body-details"></div>
+      </div>
+      <div class="card static-card">
+        <h3>Cambio frente a la medición anterior</h3>
+        <div id="bodyTrend" class="body-details"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="./app.js"></script>
+</body>
+</html>
