@@ -1,56 +1,22 @@
-# Personal Fitness App — v4.4
+# Personal Fitness App — v4.5
 
-A mobile-first personal dashboard published with GitHub Pages.
+Mobile-first personal dashboard for GitHub Pages.
 
-## Included features
+## Features
 
-- Push, Pull and Legs gym routines.
-- Four-week swimming plan.
-- Mobility, mountain and open-water activity tracking.
-- Completed-session history with undo and individual deletion.
-- Weekly/monthly consistency and active-day streak.
-- Local export and import of a complete backup.
-- Personal body-composition goals with completion date and days to achieve.
+- Gym and four-week swimming routines.
+- Session history, undo, individual deletion, streak and consistency.
+- Preset body-composition goals.
+- Custom objectives with start date, completion date and days required.
+- Psychology, nutritionist and physiotherapy appointment tracking.
+- One-day in-app reminders for psychology and nutrition appointments.
 - Recovery and overload-prevention check-in.
-- Psychology appointment tracking with an in-app one-day reminder.
-- Physiotherapy tracking and recurring preventive-review date.
 - Static nutrition plan.
-- Private local loading of InBody data from JSON.
-- Offline-capable Progressive Web App.
+- Private local InBody loading.
+- Full local backup import and export.
+- Offline PWA support.
 
-## Required public files
+## Privacy
 
-Upload these files to the root of the `main` branch:
-
-- `.gitignore`
-- `README.md`
-- `UPLOAD_INSTRUCTIONS.txt`
-- `app.js`
-- `icon-192.png`
-- `icon-512.png`
-- `index.html`
-- `manifest.webmanifest`
-- `style.css`
-- `sw.js`
-
-## Private files
-
-Do not upload the following files to the public repository:
-
-- `body-composition.json`
-- `personal-fitness-backup-*.json`
-
-The application reads and stores those records locally in the browser.
-
-## GitHub Pages
-
-Configure:
-
-- Source: **Deploy from a branch**
-- Branch: **main**
-- Folder: **/(root)**
-
-## Health notice
-
-The recovery indicator is informational. It does not diagnose injuries or
-replace medical, physiotherapy, psychological or nutritional care.
+Do not upload `body-composition.json` or `personal-fitness-backup-*.json`.
+These records are stored locally in the browser.

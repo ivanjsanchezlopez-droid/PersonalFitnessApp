@@ -5,7 +5,7 @@ const PHYSIO_KEY = "personalFitnessPhysioV1";
 const GOALS_KEY = "personalFitnessGoalsV1";
 const APPOINTMENTS_KEY = "personalFitnessAppointmentsV1";
 const BACKUP_META_KEY = "personalFitnessBackupMetaV1";
-const APP_VERSION = "4.4";
+const APP_VERSION = "4.5";
 
 const ACTIVITY_TYPES = ["Gimnasio", "Natación", "Movilidad", "Montaña", "Aguas abiertas"];
 const LOAD_TYPES = ["Gimnasio", "Natación", "Montaña", "Aguas abiertas"];
@@ -96,7 +96,8 @@ function getDefaultGoalsState() {
           completionDate: null
         }
       ])
-    )
+    ),
+    custom: []
   };
 }
 
@@ -113,6 +114,10 @@ function getGoalsState() {
     };
   });
 
+  defaults.custom = Array.isArray(stored.custom)
+    ? stored.custom
+    : [];
+
   return defaults;
 }
 
@@ -127,6 +132,8 @@ function getAppointments() {
   return {
     psychologyNextDate: stored?.psychologyNextDate || null,
     psychologyLastVisit: stored?.psychologyLastVisit || null,
+    nutritionistNextDate: stored?.nutritionistNextDate || null,
+    nutritionistLastVisit: stored?.nutritionistLastVisit || null,
     physio: {
       lastVisit: stored?.physio?.lastVisit || legacyPhysio?.lastVisit || null,
       intervalWeeks:
@@ -501,6 +508,10 @@ function importBackupFile(file) {
           saveAppointments({
             psychologyNextDate: parsed.appointments.psychologyNextDate || null,
             psychologyLastVisit: parsed.appointments.psychologyLastVisit || null,
+            nutritionistNextDate:
+              parsed.appointments.nutritionistNextDate || null,
+            nutritionistLastVisit:
+              parsed.appointments.nutritionistLastVisit || null,
             physio: {
               lastVisit: parsed.appointments.physio?.lastVisit || null,
               intervalWeeks:
@@ -668,6 +679,119 @@ function renderGoalCard(definition, goalState) {
   `;
 }
 
+
+function renderCustomGoalCard(goal) {
+  const completed = Boolean(goal.completed);
+  const completionDate = goal.completionDate || (completed ? localDateKey() : null);
+  const daysToComplete = completionDate
+    ? Math.max(0, daysBetween(dateFromKey(goal.startDate), dateFromKey(completionDate)))
+    : null;
+
+  return `
+    <article class="goal-card ${completed ? "goal-completed" : ""}">
+      <label class="goal-check-row">
+        <input class="custom-goal-checkbox" type="checkbox" data-custom-goal-id="${goal.id}" ${completed ? "checked" : ""}>
+        <div class="goal-copy">
+          <h3>${escapeHtml(goal.title)}</h3>
+          <p>Meta: ${escapeHtml(goal.target)}</p>
+        </div>
+      </label>
+
+      <div class="goal-details">
+        <div class="goal-detail"><span>Valor inicial</span><strong>${escapeHtml(goal.initial || "No definido")}</strong></div>
+        <div class="goal-detail"><span>Fecha de inicio</span><strong>${formatDate(goal.startDate)}</strong></div>
+        <div class="goal-detail"><span>Estado</span><strong>${completed ? "Completado" : "Activo"}</strong></div>
+      </div>
+
+      ${completed ? `
+        <div class="goal-completion">
+          <label>
+            Fecha de cumplimiento
+            <input class="custom-goal-completion-date" data-custom-goal-id="${goal.id}" type="date" min="${goal.startDate}" max="${localDateKey()}" value="${completionDate}">
+          </label>
+          <p class="goal-days">Tiempo para lograrlo: ${daysToComplete} ${daysToComplete === 1 ? "día" : "días"}</p>
+        </div>
+      ` : ""}
+
+      <div class="goal-card-actions">
+        <button class="delete-goal-btn" type="button" data-custom-goal-id="${goal.id}">Eliminar</button>
+      </div>
+    </article>
+  `;
+}
+
+function addCustomGoal(event) {
+  event.preventDefault();
+  const title = document.getElementById("customGoalTitle").value.trim();
+  const initial = document.getElementById("customGoalInitial").value.trim();
+  const target = document.getElementById("customGoalTarget").value.trim();
+  const startDate = document.getElementById("customGoalStartDate").value;
+
+  if (!title || !target || !startDate) {
+    showToast("Completa nombre, meta y fecha de inicio.");
+    return;
+  }
+
+  const state = getGoalsState();
+  state.custom.push({
+    id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    title,
+    initial,
+    target,
+    startDate,
+    completed: false,
+    completionDate: null
+  });
+  saveGoalsState(state);
+  document.getElementById("customGoalForm").reset();
+  document.getElementById("customGoalStartDate").value = localDateKey();
+  document.getElementById("customGoalDialog").close();
+  renderGoals();
+  showToast("Objetivo agregado.");
+}
+
+function toggleCustomGoal(goalId, completed) {
+  const state = getGoalsState();
+  const goal = state.custom.find(item => item.id === goalId);
+  if (!goal) return;
+
+  if (!completed) {
+    if (!confirm("¿Marcar este objetivo como pendiente nuevamente?")) {
+      renderGoals();
+      return;
+    }
+    goal.completed = false;
+    goal.completionDate = null;
+  } else {
+    goal.completed = true;
+    goal.completionDate = localDateKey();
+  }
+  saveGoalsState(state);
+  renderGoals();
+  showToast(completed ? "Objetivo completado." : "Objetivo marcado como pendiente.");
+}
+
+function updateCustomGoalCompletionDate(goalId, date) {
+  const state = getGoalsState();
+  const goal = state.custom.find(item => item.id === goalId);
+  if (!goal) return;
+  goal.completionDate = date || localDateKey();
+  saveGoalsState(state);
+  renderGoals();
+  showToast("Fecha actualizada.");
+}
+
+function deleteCustomGoal(goalId) {
+  const state = getGoalsState();
+  const goal = state.custom.find(item => item.id === goalId);
+  if (!goal) return;
+  if (!confirm(`¿Eliminar el objetivo "${goal.title}"?`)) return;
+  state.custom = state.custom.filter(item => item.id !== goalId);
+  saveGoalsState(state);
+  renderGoals();
+  showToast("Objetivo eliminado.");
+}
+
 function renderGoals() {
   const state = getGoalsState();
 
@@ -679,9 +803,12 @@ function renderGoals() {
     goal => state.items[goal.id]?.completed
   );
 
-  document.getElementById("activeGoalsCount").textContent = active.length;
-  document.getElementById("completedGoalsTotal").textContent = completed.length;
-  document.getElementById("completedGoalsCount").textContent = completed.length;
+  const customActive = state.custom.filter(goal => !goal.completed);
+  const customCompleted = state.custom.filter(goal => goal.completed);
+
+  document.getElementById("activeGoalsCount").textContent = active.length + customActive.length;
+  document.getElementById("completedGoalsTotal").textContent = completed.length + customCompleted.length;
+  document.getElementById("completedGoalsCount").textContent = completed.length + customCompleted.length;
 
   document.getElementById("activeGoalsList").innerHTML = active.length
     ? active
@@ -689,10 +816,17 @@ function renderGoals() {
         .join("")
     : '<p class="goals-empty">Todos los objetivos están completados.</p>';
 
-  document.getElementById("completedGoalsList").innerHTML = completed.length
-    ? completed
-        .map(goal => renderGoalCard(goal, state.items[goal.id]))
-        .join("")
+  document.getElementById("customGoalsList").innerHTML = customActive.length
+    ? customActive.map(renderCustomGoalCard).join("")
+    : '<p class="goals-empty">Todavía no hay objetivos personalizados activos.</p>';
+
+  const completedCards = [
+    ...completed.map(goal => renderGoalCard(goal, state.items[goal.id])),
+    ...customCompleted.map(renderCustomGoalCard)
+  ];
+
+  document.getElementById("completedGoalsList").innerHTML = completedCards.length
+    ? completedCards.join("")
     : '<p class="goals-empty">Todavía no hay objetivos completados.</p>';
 
   document.querySelectorAll(".goal-checkbox").forEach(checkbox => {
@@ -736,6 +870,24 @@ function renderGoals() {
       saveGoalsState(stateNow);
       renderGoals();
       showToast("Fecha de cumplimiento actualizada.");
+    });
+  });
+
+  document.querySelectorAll(".custom-goal-checkbox").forEach(checkbox => {
+    checkbox.addEventListener("change", () => {
+      toggleCustomGoal(checkbox.dataset.customGoalId, checkbox.checked);
+    });
+  });
+
+  document.querySelectorAll(".custom-goal-completion-date").forEach(input => {
+    input.addEventListener("change", () => {
+      updateCustomGoalCompletionDate(input.dataset.customGoalId, input.value);
+    });
+  });
+
+  document.querySelectorAll(".delete-goal-btn").forEach(button => {
+    button.addEventListener("click", () => {
+      deleteCustomGoal(button.dataset.customGoalId);
     });
   });
 }
@@ -875,6 +1027,29 @@ function renderAppointments() {
   document.getElementById("clearPsychologyDate").disabled =
     !appointments.psychologyNextDate;
 
+  const nutritionist = getPsychologyDateStatus(
+    appointments.nutritionistNextDate
+  );
+
+  const nutritionistCard = document.getElementById("nutritionistCard");
+  nutritionistCard.classList.remove(
+    "reminder-tomorrow",
+    "reminder-today",
+    "date-past"
+  );
+  if (nutritionist.className) nutritionistCard.classList.add(nutritionist.className);
+
+  document.getElementById("nutritionistDate").value = appointments.nutritionistNextDate || "";
+  document.getElementById("nutritionistStatus").textContent = nutritionist.title;
+  document.getElementById("nutritionistCountdown").textContent = nutritionist.message;
+  document.getElementById("nutritionistLastVisit").textContent =
+    appointments.nutritionistLastVisit
+      ? `Última cita registrada: ${formatDate(appointments.nutritionistLastVisit)}.`
+      : "Sin cita anterior registrada.";
+
+  document.getElementById("completeNutritionistDate").disabled = !appointments.nutritionistNextDate;
+  document.getElementById("clearNutritionistDate").disabled = !appointments.nutritionistNextDate;
+
   const physio = getPhysioDueInfo();
   document.getElementById("physioDate").value =
     appointments.physio.lastVisit || "";
@@ -940,6 +1115,39 @@ function clearPsychologyDate() {
   showToast("Fecha eliminada.");
 }
 
+
+function saveNutritionistDate() {
+  const date = document.getElementById("nutritionistDate").value;
+  if (!date) { showToast("Selecciona una fecha."); return; }
+  if (!confirm(`¿Guardar la próxima cita para el ${formatDate(date)}?`)) return;
+  const appointments = getAppointments();
+  appointments.nutritionistNextDate = date;
+  saveAppointments(appointments);
+  renderAll();
+  showToast("Cita de nutrición guardada.");
+}
+
+function completeNutritionistDate() {
+  const appointments = getAppointments();
+  if (!appointments.nutritionistNextDate) return;
+  if (!confirm(`¿Marcar como realizada la cita del ${formatDate(appointments.nutritionistNextDate)}?`)) return;
+  appointments.nutritionistLastVisit = appointments.nutritionistNextDate;
+  appointments.nutritionistNextDate = null;
+  saveAppointments(appointments);
+  renderAll();
+  showToast("Cita marcada como realizada.");
+}
+
+function clearNutritionistDate() {
+  const appointments = getAppointments();
+  if (!appointments.nutritionistNextDate) return;
+  if (!confirm("¿Quitar la fecha de la próxima cita de nutrición?")) return;
+  appointments.nutritionistNextDate = null;
+  saveAppointments(appointments);
+  renderAll();
+  showToast("Fecha eliminada.");
+}
+
 function savePhysioFromAppointments() {
   const date = document.getElementById("physioDate").value;
   const intervalWeeks = Number(
@@ -980,6 +1188,15 @@ function renderAttention() {
       label: "Psicología",
       value: "Cita hoy"
     });
+  }
+
+  const nutritionist = getPsychologyDateStatus(
+    appointments.nutritionistNextDate
+  );
+  if (nutritionist.daysRemaining === 1) {
+    items.push({ label: "Nutrición", value: "Cita mañana" });
+  } else if (nutritionist.daysRemaining === 0) {
+    items.push({ label: "Nutrición", value: "Cita hoy" });
   }
 
   const physio = getPhysioDueInfo();
@@ -1362,6 +1579,13 @@ document.getElementById("openRecoveryCheck").addEventListener("click", () => {
 
 document.getElementById("recoveryForm").addEventListener("submit", saveRecoveryCheck);
 
+document.getElementById("openCustomGoal").addEventListener("click", () => {
+  document.getElementById("customGoalStartDate").value = localDateKey();
+  document.getElementById("customGoalDialog").showModal();
+});
+
+document.getElementById("customGoalForm").addEventListener("submit", addCustomGoal);
+
 document.getElementById("savePsychologyDate").addEventListener(
   "click",
   savePsychologyDate
@@ -1374,6 +1598,11 @@ document.getElementById("clearPsychologyDate").addEventListener(
   "click",
   clearPsychologyDate
 );
+
+document.getElementById("saveNutritionistDate").addEventListener("click", saveNutritionistDate);
+document.getElementById("completeNutritionistDate").addEventListener("click", completeNutritionistDate);
+document.getElementById("clearNutritionistDate").addEventListener("click", clearNutritionistDate);
+
 document.getElementById("savePhysioSettings").addEventListener(
   "click",
   savePhysioFromAppointments

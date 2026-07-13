@@ -2,7 +2,7 @@
 body-composition.json
 personal-fitness-backup-*.json
 
-# Local archives and operating system files
+# Local files
 *.zip
 .DS_Store
 Thumbs.db

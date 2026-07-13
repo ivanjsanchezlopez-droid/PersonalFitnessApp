@@ -273,6 +273,9 @@
         <p class="eyebrow">Seguimiento personal</p>
         <h2>Objetivos</h2>
       </div>
+      <button id="openCustomGoal" class="secondary-btn" type="button">
+        Nuevo objetivo
+      </button>
     </div>
 
     <div class="stats-grid goal-stats">
@@ -295,6 +298,12 @@
     </div>
 
     <div id="activeGoalsList" class="goals-list"></div>
+
+    <div class="custom-goals-heading">
+      <h3>Objetivos personalizados</h3>
+      <p class="muted">Crea metas adicionales sin modificar el código.</p>
+    </div>
+    <div id="customGoalsList" class="goals-list"></div>
 
     <details id="completedGoalsPanel" class="card goals-completed-panel">
       <summary>
@@ -371,6 +380,35 @@
         </div>
 
         <p id="psychologyLastVisit" class="microcopy">Sin cita anterior registrada.</p>
+        <p class="disclaimer">
+          El recordatorio aparece dentro de la app un día antes. No genera una
+          notificación del sistema cuando la app está cerrada.
+        </p>
+      </article>
+
+      <article id="nutritionistCard" class="card static-card appointment-card">
+        <div class="appointment-heading">
+          <div>
+            <p class="eyebrow">Nutrición</p>
+            <h3 id="nutritionistStatus">No agendada todavía</h3>
+            <p id="nutritionistCountdown" class="muted">
+              Selecciona la fecha de tu próxima cita.
+            </p>
+          </div>
+        </div>
+
+        <label class="form-field">
+          <span>Próxima cita</span>
+          <input id="nutritionistDate" type="date">
+        </label>
+
+        <div class="appointment-actions">
+          <button id="saveNutritionistDate" class="primary-btn" type="button">Guardar fecha</button>
+          <button id="completeNutritionistDate" class="secondary-btn" type="button">Marcar realizada</button>
+          <button id="clearNutritionistDate" class="text-button" type="button">Quitar fecha</button>
+        </div>
+
+        <p id="nutritionistLastVisit" class="microcopy">Sin cita anterior registrada.</p>
         <p class="disclaimer">
           El recordatorio aparece dentro de la app un día antes. No genera una
           notificación del sistema cuando la app está cerrada.
@@ -654,7 +692,7 @@
 </main>
 
 <footer class="app-footer">
-  <strong>Personal Fitness App · v4.4</strong>
+  <strong>Personal Fitness App · v4.5</strong>
   <span>Datos guardados localmente en este dispositivo</span>
 </footer>
 
@@ -740,6 +778,43 @@
   </form>
 </dialog>
 
+
+<dialog id="customGoalDialog" class="app-dialog">
+  <form id="customGoalForm">
+    <div class="dialog-header">
+      <div>
+        <p class="eyebrow">Nuevo objetivo</p>
+        <h2>Objetivo personalizado</h2>
+      </div>
+      <button class="icon-button" type="button" data-close-dialog="customGoalDialog" aria-label="Cerrar">×</button>
+    </div>
+
+    <label class="form-field">
+      <span>Nombre del objetivo</span>
+      <input id="customGoalTitle" type="text" maxlength="80" placeholder="Ej. Completar una travesía de 5 km" required>
+    </label>
+
+    <label class="form-field">
+      <span>Valor inicial o contexto</span>
+      <input id="customGoalInitial" type="text" maxlength="80" placeholder="Ej. Actualmente 3 km">
+    </label>
+
+    <label class="form-field">
+      <span>Meta</span>
+      <input id="customGoalTarget" type="text" maxlength="80" placeholder="Ej. Completar 5 km" required>
+    </label>
+
+    <label class="form-field">
+      <span>Fecha de inicio</span>
+      <input id="customGoalStartDate" type="date" required>
+    </label>
+
+    <div class="dialog-actions">
+      <button class="secondary-btn" type="button" data-close-dialog="customGoalDialog">Cancelar</button>
+      <button class="primary-btn" type="submit">Guardar objetivo</button>
+    </div>
+  </form>
+</dialog>
 
 <div id="toast" class="toast" role="status" aria-live="polite">
   <span id="toastMessage"></span>
