@@ -1,14 +1,15 @@
-# Personal Fitness App — v4.5
+# Personal Fitness App — v4.6
 
 Mobile-first personal dashboard for GitHub Pages.
 
 ## Features
 
-- Gym and four-week swimming routines.
-- Session history, undo, individual deletion, streak and consistency.
+- Gym routines and a four-week race-specific swimming block.
+- Detailed weekly mobility routine.
+- Session history, total-rest registration, undo, individual deletion, streak and consistency.
 - Preset body-composition goals.
 - Custom objectives with start date, completion date and days required.
-- Psychology, nutritionist and physiotherapy appointment tracking.
+- Psychology, nutritionist, physiotherapy and custom medical-specialist tracking.
 - One-day in-app reminders for psychology and nutrition appointments.
 - Recovery and overload-prevention check-in.
 - Static nutrition plan.

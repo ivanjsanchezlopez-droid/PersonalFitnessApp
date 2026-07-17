@@ -1,9 +1,10 @@
-const CACHE_NAME = "personal-fitness-v4-5";
+const CACHE_NAME = "personal-fitness-v4-6";
 const APP_FILES = [
   "./",
   "./index.html",
   "./style.css",
   "./app.js",
+  "./v46.js",
   "./manifest.webmanifest",
   "./icon-192.png",
   "./icon-512.png"
